@@ -21,6 +21,7 @@ the same device. The sampler does not load a model or tokenizer.
 Its risk constraint applies to the expected plan over a renormalized top-k
 support. Realized samples, and the forced update used to ensure progress,
 are not guaranteed to satisfy that bound on every step.
+
 """
 
 import math
