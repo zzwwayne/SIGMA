@@ -1,7 +1,7 @@
 """SIGMA: a standalone sigmoid-gated sampler for diffusion language models.
 
-Requires PyTorch only. Call ``sigma_decoding`` from an existing denoising loop
-with logits, a boolean mask, and token IDs for the current block::
+SIGMA is a drop-in sampler that can replace your current sampler conveniently. All you need to do is pass through model's 
+predicted logits, mask position, fixed output at current decoding step and sigma parameters like this:
 
     from sigma_sampler import sigma_decoding
 
@@ -12,15 +12,6 @@ with logits, a boolean mask, and token IDs for the current block::
         parameter={"lam": 0.12, "rho": 0.6},
     )
     token_ids[update_mask] = proposed_ids[update_mask]
-
-The caller supplies model logits and controls model-specific logit alignment,
-block boundaries, stopping criteria, and random seeds. All tensors must be on
-the same device. The sampler does not load a model or tokenizer.
-
-``sigma`` exposes the underlying temperature/unmasking-probability solver.
-Its risk constraint applies to the expected plan over a renormalized top-k
-support. Realized samples, and the forced update used to ensure progress,
-are not guaranteed to satisfy that bound on every step.
 
 """
 
